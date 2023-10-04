@@ -1,12 +1,14 @@
 import React from 'react';
+import Layout from '../layout/Layout';
 
-// type Props = {}
+
+
 
 const Home = () => {
   return (
-    <div text-3xl font-bold>
-      Home
-    </div>
+    <Layout>
+      <div className="text-3xl font-bold">Hello!!!</div>
+    </Layout>
   );
 };
 
