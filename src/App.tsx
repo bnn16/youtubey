@@ -2,21 +2,19 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
-import Login from './pages/Login';
 import Navigation from './components/Navigation';
 import { AuthProvider, ProtectedRoute } from './utils/AuthProvider';
 import NoMatch from './pages/NoMatch';
 import Admin from './pages/Admin';
 import TestRoute from './pages/TestRoute';
+import Register from './pages/Register';
 
 function App() {
   return (
     <AuthProvider>
-      <Navigation />
-
       <Routes>
         <Route index element={<Home />} />
-        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
         <Route
           path="testRoute"
           element={
