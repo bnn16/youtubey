@@ -7,7 +7,7 @@ import { Config } from '../constants/config';
 interface AuthContextType {
   token: string | null;
   onRegister: (data: UserData) => Promise<any>;
-  onLogin: (data: LoginData) => void;
+  onLogin: (data: LoginData) => Promise<any>;
   onLogout: () => void;
 }
 interface UserData {
@@ -22,15 +22,9 @@ interface LoginData {
   password: string;
 }
 
-const fakeAuth = () =>
-  new Promise<string>((resolve) => {
-    setTimeout(() => resolve('2342f2f1d131rf12'), 250);
-  });
-
 const AuthContext = React.createContext<AuthContextType | null>(null);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const location = useLocation();
   const navigate = useNavigate();
 
   const [token, setToken] = React.useState<string | null>(() => {
@@ -60,19 +54,36 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const handleLogin = (data: LoginData) => {
-    fakeAuth().then((token) => {
-      //add token to local storage
-      localStorage.setItem('token', token);
-      setToken(token);
-      const origin = location.state?.from?.pathname || '/';
-      navigate(origin);
-    });
+  const handleLogin = async (data: LoginData) => {
+    try {
+      const response = await axios.post(
+        `${Config.apiUrl}/rest/auth/login`,
+        data,
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true,
+        }
+      );
+      setToken(response.data.token);
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userID', response.data.userID);
+      return true; // You can return some data if needed
+    } catch (err) {
+      if (!axios.isAxiosError(err)) {
+        throw new Error('No Server Response');
+      } else if ((err as AxiosError).response?.status === 401) {
+        throw new Error('Invalid Email/Password');
+      } else {
+        throw new Error('Login Failed');
+      }
+    }
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('userID');
     setToken(null);
+    navigate('/login');
   };
 
   //TODO: Create a endpoint to check token validity/heartbeat
@@ -97,6 +108,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   //   };
   //   checkTokenValidity();
   // }, [token]);
+
   const value = React.useMemo(
     () => ({
       token,

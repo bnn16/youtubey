@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { useAuth } from '../utils/AuthProvider';
+import { useAuth } from '../../utils/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import PasswordChecklist from 'react-password-checklist';
 
@@ -49,7 +49,6 @@ function Register(): JSX.Element {
           navigate('/login');
         }
       });
-      // Registration was successful redirect to another page.
     } catch (error) {
       setPassword('');
       setMatchPassword('');
