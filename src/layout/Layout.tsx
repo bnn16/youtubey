@@ -9,13 +9,19 @@ function Layout({ children }: any) {
   };
 
   const marginLeft = open ? '19rem' : '5rem';
+  const paddingLeft = open ? '10rem' : '4rem';
 
   return (
     <div>
       <Navigation open={open} toggleOpen={toggleOpen} />
       <div
-        style={{ marginLeft, paddingTop: '4rem' }}
-        className="duration-500 text-xl font-semibold"
+        style={{
+          marginLeft,
+          paddingLeft,
+          paddingTop: '4rem',
+          transition: 'all .5s ease',
+        }}
+        className="duration-500 mx-0 max-w-7xl py-6 sm:px-6 lg:px-2 w-screen	h-screen"
       >
         {children}
       </div>

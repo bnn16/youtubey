@@ -157,9 +157,12 @@ const Navigation = ({ open, toggleOpen }: any) => {
           ))}
         </div>
       </div>
-      <Link to="/" className="m-3 text-xl text-gray-900 font-semibold flex">
+      <Link
+        to="/"
+        className="m-3 text-xl text-gray-900 font-semibold flex w-100% h-5"
+      >
         <img
-          className="w-10 h-10 mx-2 hover:cursor-pointer"
+          className="w-10 -ml-6 h-10 mx-2 hover:cursor-pointer"
           src="https://media.onlinejobs.ph/employer_logos/615548/70b1fba89cfaa8abe47abbe755e0f11f.png"
           alt="logo"
         ></img>
