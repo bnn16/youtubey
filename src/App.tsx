@@ -8,30 +8,36 @@ import Admin from './pages/Admin';
 import TestRoute from './pages/TestRoute';
 import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
-import { AnimatePresence } from 'framer-motion';
+import Profile from './pages/Profile/Profile';
 
 function App() {
   return (
-    <AnimatePresence>
-      <AuthProvider>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
-          <Route path="testRoute" element={<TestRoute />} />
-          <Route
-            path="admin"
-            element={
-              <ProtectedRoute>
-                <Admin />
-              </ProtectedRoute>
-            }
-          />
+    <AuthProvider>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} />
+        <Route path="testRoute" element={<TestRoute />} />
+        <Route
+          path="profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="admin"
+          element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
 
-          <Route path="*" element={<NoMatch message="404 Not Found!" />} />
-        </Routes>
-      </AuthProvider>
-    </AnimatePresence>
+        <Route path="*" element={<NoMatch message="404 Not Found!" />} />
+      </Routes>
+    </AuthProvider>
   );
 }
 
