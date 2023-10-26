@@ -24,7 +24,7 @@ function Profile() {
 
   useEffect(() => {
     setUserId(localStorage.getItem('userID') || '');
-    setAuthToken(localStorage.getItem('authToken') || '');
+    setAuthToken(localStorage.getItem('token') || '');
 
     const url = Config.apiUrl + '/rest/auth/profile/' + userId;
 
@@ -41,7 +41,7 @@ function Profile() {
       ) : data === null ? (
         <NoMatch message="Error 404, not Found" />
       ) : (
-        <ProfileWindow data={data} />
+        <ProfileWindow data={data} userId={userId} token={authToken} />
       )}
     </Layout>
   );
