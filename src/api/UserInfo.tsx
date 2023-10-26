@@ -14,6 +14,7 @@ async function fetchUserInfo(
     setLoading(true);
     const response = await axios.get(url, config);
     setData(response.data);
+    localStorage.setItem('role', response.data.role);
   } catch (err) {
     setData(null);
   } finally {

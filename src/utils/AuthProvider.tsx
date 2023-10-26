@@ -6,6 +6,8 @@ import { Config } from '../constants/config';
 
 interface AuthContextType {
   token: string | null;
+  role: string | null;
+  userId: string | null;
   onRegister: (data: UserData) => Promise<any>;
   onLogin: (data: LoginData) => Promise<any>;
   onLogout: () => void;
@@ -30,6 +32,14 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = React.useState<string | null>(() => {
     const storedToken = localStorage.getItem('token');
     return storedToken ? storedToken : null;
+  });
+  const [role, setRole] = React.useState<string | null>(() => {
+    const storedRole = localStorage.getItem('role');
+    return storedRole ? storedRole : null;
+  });
+  const [userId, setUserId] = React.useState<string | null>(() => {
+    const storedUserId = localStorage.getItem('userID');
+    return storedUserId ? storedUserId : null;
   });
 
   const handleRegister = async (data: UserData) => {
@@ -65,8 +75,12 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
       );
       setToken(response.data.token);
+      setUserId(response.data.userID);
+      setRole(response.data.role);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userID', response.data.userID);
+      localStorage.setItem('role', response.data.role);
+
       return true; // You can return some data if needed
     } catch (err) {
       if (!axios.isAxiosError(err)) {
@@ -83,6 +97,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.removeItem('token');
     localStorage.removeItem('userID');
     setToken(null);
+    setRole(null);
+    setUserId(null);
     navigate('/login');
   };
 
@@ -112,6 +128,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const value = React.useMemo(
     () => ({
       token,
+      role,
+      userId,
       onRegister: handleRegister,
       onLogin: handleLogin,
       onLogout: handleLogout,

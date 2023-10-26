@@ -2,33 +2,56 @@ import React, { useState } from 'react';
 import { BiLocationPlus } from 'react-icons/bi';
 import { MdWork } from 'react-icons/md';
 import { FiYoutube } from 'react-icons/fi';
+import SettingsModal from './SettingsModal';
+// import SettingsModal from './SettingsModal';
 
 type Props = {
   data: any;
+  userId: string;
+  token: string;
 };
 
-function ProfileWindow({ data }: Props) {
+function ProfileWindow({ data, userId, token }: Props) {
   const [hover, setHover] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
+
+  const editClickHandler = () => {
+    setOpen(true);
+  };
+
+  const imageUrl =
+    data && data.image && data.image.data
+      ? `data:image/png;base64,${data.image.data}`
+      : 'https://api-private.atlassian.com/users/5e58d1d8f529fbb37309149956f28c00/avatar';
 
   return (
-    <div className="flex items-center h-auto lg:h-full flex-wrap mx-auto -mr-24 my-32 lg:my-0">
+    <div className="flex items-center h-auto lg:h-full flex-wrap mx-auto -mr-40 pl-24 my-32  lg:my-0">
       <div
         id="profile"
-        className="w-full relative lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-75 mx-6 lg:mx-0"
+        className="w-full relative lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-100 mx-6 lg:mx-0"
       >
         <div className="absolute bottom-8 right-8">
-          <button className="bg-black hover:bg-red-800 hover:text-white text-white font-bold py-2 px-4 rounded-full">
+          <button
+            onClick={editClickHandler}
+            className="bg-black hover:bg-red-800 hover:text-white text-white font-bold py-2 px-4 rounded-full"
+          >
             Edit Profile
           </button>
         </div>
+        {open ? (
+          <SettingsModal
+            open={open}
+            setOpen={setOpen}
+            props={data}
+            userId={userId}
+            token={token}
+          />
+        ) : null}
         <div className="p-4 md:p-12 text-center lg:text-left">
           <div
             className="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
             style={{
-              backgroundImage:
-                data.image.data === null
-                  ? `url(https://api-private.atlassian.com/users/5e58d1d8f529fbb37309149956f28c00/avatar)`
-                  : `url(data:image/png;base64,${data?.image.data})`,
+              backgroundImage: `url(${imageUrl})`,
             }}
           ></div>
           <h1 className="text-3xl font-bold pt-8 lg:pt-0">{data?.username}</h1>
@@ -60,19 +83,23 @@ function ProfileWindow({ data }: Props) {
         </div>
       </div>
 
-      <div className="w-full ml-28 lg:w-1/5">
-        {data?.image.data === null ? (
-          <img
-            src="https://api-private.atlassian.com/users/5e58d1d8f529fbb37309149956f28c00/avatar"
-            className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
-            alt=""
-          />
+      <div className="w-full ml-12 lg:w-1/3">
+        {data && data.image ? (
+          data.image.data === null ? (
+            <img
+              src="https://api-private.atlassian.com/users/5e58d1d8f529fbb37309149956f28c00/avatar"
+              className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
+              alt=""
+            />
+          ) : (
+            <img
+              src={`data:image/png;base64,${data.image.data}`}
+              className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
+              alt="hello"
+            />
+          )
         ) : (
-          <img
-            src={`data:image/png;base64,${data?.image.data}`}
-            className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
-            alt=""
-          />
+          <div>Image not available, please upload Image</div>
         )}
       </div>
     </div>
