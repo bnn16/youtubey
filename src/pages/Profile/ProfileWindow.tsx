@@ -25,10 +25,10 @@ function ProfileWindow({ data, userId, token }: Props) {
       : 'https://api-private.atlassian.com/users/5e58d1d8f529fbb37309149956f28c00/avatar';
 
   return (
-    <div className="flex items-center h-auto lg:h-full flex-wrap mx-auto -mr-40 pl-24 my-32  lg:my-0">
+    <div className="flex items-center h-auto max-w-full lg:h-full flex-wrap mx-auto -mr-40 pl-24 my-32  lg:my-0">
       <div
         id="profile"
-        className="w-full relative lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-100 mx-6 lg:mx-0"
+        className="w-full relative lg:w-2/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-100 mx-6 lg:mx-0000"
       >
         <div className="absolute bottom-8 right-8">
           <button
@@ -83,7 +83,7 @@ function ProfileWindow({ data, userId, token }: Props) {
         </div>
       </div>
 
-      <div className="w-full ml-12 lg:w-1/3">
+      <div className="w-full ml-50 lg:w-1/3">
         {data && data.image ? (
           data.image.data === null ? (
             <img
