@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Home from './pages/Home';
 import { AuthProvider, ProtectedRoute } from './utils/AuthProvider';
 import NoMatch from './pages/NoMatch';
 import Admin from './pages/Admin';
@@ -9,15 +8,26 @@ import TestRoute from './pages/TestRoute';
 import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import Profile from './pages/Profile/Profile';
+import Post from './pages/Posts/Post';
+import WelcomePage from './pages/Welcome/WelcomePage';
+import DashBoard from './pages/Dashboard/Dashboard';
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route index element={<Home />} />
+        <Route index element={<WelcomePage />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="testRoute" element={<TestRoute />} />
+        <Route
+          path="posts/:id"
+          element={
+            <ProtectedRoute>
+              <Post />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="profile"
           element={
@@ -31,6 +41,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Admin />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute>
+              <DashBoard />
             </ProtectedRoute>
           }
         />

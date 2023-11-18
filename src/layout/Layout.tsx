@@ -21,7 +21,7 @@ function Layout({ children }: any) {
           paddingTop: '4rem',
           transition: 'all .5s ease',
         }}
-        className="duration-500 mx-0 max-w-7xl py-6 sm:px-6 lg:px-2 w-screen	h-screen"
+        className="duration-500 mx-0 py-6 sm:px-6 lg:px-2 w-9/12	h-screen"
       >
         {children}
       </div>

@@ -29,7 +29,7 @@ const Navigation = ({ open, toggleOpen }: any) => {
 
   if (token) {
     topMenus = [
-      { name: 'Home', link: '/', icon: MdOutlineDashboard },
+      { name: 'Dashboard', link: '/dashboard', icon: MdOutlineDashboard },
       { name: 'Messages', link: '/messages', icon: FiMessageSquare },
       { name: 'Profile', link: '/profile', icon: AiOutlineUser },
     ];
@@ -81,7 +81,7 @@ const Navigation = ({ open, toggleOpen }: any) => {
             <Link
               to={menu?.link}
               key={i}
-              className={`group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md mt-2`}
+              className={`group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-red-700 rounded-md mt-2`}
             >
               <div>{React.createElement(menu?.icon, { size: '20' })}</div>
               <h2
@@ -111,7 +111,7 @@ const Navigation = ({ open, toggleOpen }: any) => {
                 <button
                   type="button"
                   onClick={onLogout}
-                  className={`group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md mt-2`}
+                  className={`group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-red-800 rounded-md mt-2`}
                 >
                   <div>{React.createElement(menu.icon, { size: '20' })}</div>
                   <h2
@@ -133,7 +133,8 @@ const Navigation = ({ open, toggleOpen }: any) => {
               ) : (
                 <Link
                   to={menu.link}
-                  className={`group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md mt-2`}
+                  className={`group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-red
+                  -800 rounded-md mt-2`}
                 >
                   <div>{React.createElement(menu.icon, { size: '20' })}</div>
                   <h2
@@ -157,19 +158,21 @@ const Navigation = ({ open, toggleOpen }: any) => {
           ))}
         </div>
       </div>
-      <Link
-        to="/"
-        className="m-3 text-xl text-gray-900 font-semibold flex w-100% h-5"
-      >
-        <img
-          className="w-10 -ml-6 h-10 mx-2 hover:cursor-pointer"
-          src="https://media.onlinejobs.ph/employer_logos/615548/70b1fba89cfaa8abe47abbe755e0f11f.png"
-          alt="logo"
-        ></img>
-        <p className="mt-1.5">
-          You<span className="text-red-500">Tubey</span>
-        </p>
-      </Link>
+      <div className="full-width-section">
+        <Link
+          to="/"
+          className="m-3 text-xl text-gray-900 font-semibold flex w-100% h-5 hover:cursor-pointer z-50"
+        >
+          <img
+            className="w-10 -ml-6 h-10 mx-2 hover:cursor-pointer"
+            src="https://media.onlinejobs.ph/employer_logos/615548/70b1fba89cfaa8abe47abbe755e0f11f.png"
+            alt="logo"
+          />
+          <p className="mt-1.5">
+            You<span className="text-red-500">Tubey</span>
+          </p>
+        </Link>
+      </div>
     </section>
   );
 };

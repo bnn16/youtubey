@@ -36,7 +36,7 @@ function Login() {
     try {
       await onLogin(data).then((successful) => {
         if (successful) {
-          navigate('/');
+          navigate('/dashboard');
         }
       });
     } catch (error) {
