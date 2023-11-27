@@ -14,6 +14,10 @@ type Post = {
   link: string;
 };
 
+type Colors = {
+  [key: string]: string;
+};
+
 const YoutuberView = () => {
   const navigate = useNavigate();
   const { token, userId } = useAuth();
@@ -25,6 +29,13 @@ const YoutuberView = () => {
     userId: userId,
     status: 'Created',
   });
+
+  const colors: Colors = {
+    Created: 'text-yellow-500',
+    Pending: 'text-blue-500',
+    Approved: 'text-green-500',
+    Rejected: 'text-red-500',
+  };
 
   const [posts, setPosts] = useState<Post[]>([]);
 
@@ -154,7 +165,8 @@ const YoutuberView = () => {
                   Check Status
                 </button>
                 <div className="flex items-center">
-                  Status: <span className="text-green-500"> {post.status}</span>
+                  Status:{' '}
+                  <span className={colors[post.status]}> {post.status}</span>
                 </div>
               </div>
             </div>

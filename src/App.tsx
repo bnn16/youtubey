@@ -11,6 +11,7 @@ import Profile from './pages/Profile/Profile';
 import Post from './pages/Posts/Post';
 import WelcomePage from './pages/Welcome/WelcomePage';
 import DashBoard from './pages/Dashboard/Dashboard';
+import EditorPosts from './pages/Dashboard/EditorView/EditorPosts';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="testRoute" element={<TestRoute />} />
+        <Route path="/posts/editorView/:id" element={<EditorPosts />} />
         <Route
           path="posts/:id"
           element={
