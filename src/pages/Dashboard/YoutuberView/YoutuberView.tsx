@@ -14,6 +14,10 @@ type Post = {
   link: string;
 };
 
+type Colors = {
+  [key: string]: string;
+};
+
 const YoutuberView = () => {
   const navigate = useNavigate();
   const { token, userId } = useAuth();
@@ -25,6 +29,13 @@ const YoutuberView = () => {
     userId: userId,
     status: 'Created',
   });
+
+  const colors: Colors = {
+    Created: 'text-yellow-500',
+    Pending: 'text-blue-500',
+    Approved: 'text-green-500',
+    Rejected: 'text-red-500',
+  };
 
   const [posts, setPosts] = useState<Post[]>([]);
 
@@ -77,14 +88,13 @@ const YoutuberView = () => {
         token,
         formData
       );
-
       if (post?.posts?.id) {
         const formData = new FormData();
         formData.append('file', selectedFile);
         formData.append('role', 'YouTuber');
 
         const response = await PostVideo(
-          `http://localhost:8000/upload/${post.posts.id}}`,
+          `http://localhost:8000/upload/${post.posts.id}`,
           formData
         );
 
@@ -92,7 +102,7 @@ const YoutuberView = () => {
           post.posts.public_url = response.updateResponse.file_url;
         }
 
-        console.log(post.posts);
+        console.log(post);
 
         const updatePost = await PatchPost(
           `http://localhost:8080/rest/requests/edits/posts/${post.posts.id}`,
@@ -148,14 +158,15 @@ const YoutuberView = () => {
               <div className="flex items-center justify-between mt-4">
                 <button
                   onClick={() => {
-                    navigate(`/post/${post.id}}`);
+                    navigate(`/posts/${post.id} `);
                   }}
                   className="linear rounded-lg bg-red-500 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-red-700 active:bg-red-700"
                 >
                   Check Status
                 </button>
                 <div className="flex items-center">
-                  Status: <span className="text-green-500"> {post.status}</span>
+                  Status:{' '}
+                  <span className={colors[post.status]}> {post.status}</span>
                 </div>
               </div>
             </div>
