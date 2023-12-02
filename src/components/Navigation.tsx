@@ -30,7 +30,6 @@ const Navigation = ({ open, toggleOpen }: any) => {
   if (token) {
     topMenus = [
       { name: 'Dashboard', link: '/dashboard', icon: MdOutlineDashboard },
-      { name: 'Messages', link: '/messages', icon: FiMessageSquare },
       { name: 'Profile', link: '/profile', icon: AiOutlineUser },
     ];
     bottomMenus = [

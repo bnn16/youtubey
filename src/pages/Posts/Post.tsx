@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../layout/Layout';
 import { useAuth } from '../../utils/AuthProvider';
 import GetPostById from '../../api/GetPostById';
@@ -21,6 +21,7 @@ type Post = {
 
 const Post = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { token, role, userId } = useAuth();
   const [post, setPost] = React.useState<Post>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>();
@@ -123,6 +124,11 @@ const Post = () => {
       closeModal();
     }
   };
+
+  const handleChat = () => {
+    navigate(`/chat`);
+  };
+
   return (
     <Layout>
       {role === 'YouTuber' ? (
@@ -209,6 +215,14 @@ const Post = () => {
                       </button>
                     </div>
                   ) : null}
+                </div>
+                <div>
+                  <button
+                    onClick={handleChat}
+                    className="bg-red-500 mt-10 text-white p-2 rounded-lg"
+                  >
+                    Chat with Editor!
+                  </button>
                 </div>
               </div>
             </div>
@@ -304,6 +318,14 @@ const Post = () => {
                     Congrats! Video has been approved
                   </h1>
                 ) : null}
+              </div>
+              <div>
+                <button
+                  onClick={handleChat}
+                  className="bg-red-500 mt-10 text-white p-2 rounded-lg"
+                >
+                  Chat with YouTuber!
+                </button>
               </div>
             </div>
           </div>
